@@ -10,3 +10,20 @@ app.use(
         extended: true, 
     })
 )
+
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'mahasiswa',
+    password: '',
+    port: 5432,
+
+})
+
+app.get('/', (req, res) => {
+    console.log("TEST DATA : ");
+    pool.query('SELECT * FROM biodata')
+    .then(testData => {
+        console.log(testData);
+        res.send(testData.rows);
+    })
